@@ -33,7 +33,7 @@ class Workout(db.Model):
     exercises = db.relationship("WorkoutExercise", back_populates="workout")
 
     @validates("duration_minutes")
-    def validate_duration(self, value):
+    def validate_duration(self, key, value):
         if value <= 0:
             raise ValueError("Duration must be positive")
         return value
@@ -59,8 +59,3 @@ class WorkoutExercise(db.Model):
             raise ValueError(f"{key} must be greater than 0")
         return value
 
-#none here is important because details for these values might not yet have been added
-
-
-#back population happens on the parent table
-# how come the back population for the join table is not happening within the join table but on the other tables?   
