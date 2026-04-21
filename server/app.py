@@ -145,12 +145,13 @@ def update_workout(id):
     data = request.get_json()
 
     try:
-        validated = WorkoutSchema(partial=True).load(data)
+        updated = WorkoutSchema(partial=True).load(
+            data,
+            instance=workout,
+            session=db.session
+        )
     except ValidationError as e:
         return make_response(e.messages, 400)
-
-    for key, value in validated.items():
-        setattr(workout, key, value)
 
     try:
         db.session.commit()
@@ -158,7 +159,7 @@ def update_workout(id):
         db.session.rollback()
         return make_response({"error": str(e)}, 400)
 
-    return make_response(WorkoutSchema().dump(workout), 200)
+    return make_response(WorkoutSchema().dump(updated), 200)
 
 
 @app.route('/workouts/<int:id>', methods=['DELETE'])
@@ -260,7 +261,7 @@ def update_workout_exercise(id):
         db.session.rollback()
         return make_response({"error": str(e)}, 400)
 
-    return make_response(WorkoutExerciseSchema().dump(we), 200)
+    return make_response(WorkoutExerciseSchema().dump(updated), 200)
 
 
 @app.route('/workout_exercises/<int:id>', methods=['DELETE'])
