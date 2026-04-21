@@ -26,9 +26,6 @@ class WorkoutExerciseSchema(ma.SQLAlchemyAutoSchema):
         model = WorkoutExercise
         load_instance = True
 
-    workout_id = fields.Integer(required=True, load_only=True)
-    exercise_id = fields.Integer(required=True, load_only=True)
-
     exercise = fields.Nested(ExerciseSchema, only=("id", "name"))
 
     @validates("reps")
@@ -40,6 +37,11 @@ class WorkoutExerciseSchema(ma.SQLAlchemyAutoSchema):
     def validate_sets(self, value):
         if value is not None and value <= 0:
             raise ValidationError("Sets must be greater than 0")
+
+    @validates("duration_seconds")
+    def validate_duration(self, value):
+        if value is not None and value <= 0:
+            raise ValidationError("Duration must be greater than 0")
         
     @post_dump
     def remove_nulls(self, data, **kwargs):
@@ -53,9 +55,8 @@ class WorkoutSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
 
     
-    exercises = fields.Nested(WorkoutExerciseSchema, many=True)
+    exercises = fields.Nested(
+        WorkoutExerciseSchema, 
+        many=True,
+        exclude=("workout_id",))
 
-    @validates("duration_minutes")
-    def validate_duration(self, value):
-        if value <= 0:
-            raise ValidationError("Duration must be greater than 0")
