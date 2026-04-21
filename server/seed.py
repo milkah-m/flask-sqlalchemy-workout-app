@@ -86,7 +86,7 @@ with app.app_context():
         we1, we2, we3, we4
     ])
 
-    # ✅ 6. Commit changes
+    #  6. Commit changes
     db.session.commit()
 
-    print("🌱 Database seeded successfully!")
+    print(" Database seeded successfully!")

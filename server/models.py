@@ -19,7 +19,11 @@ class Exercise(db.Model):
     category = db.Column(db.String, nullable=False)
     equipment_needed = db.Column(db.Boolean, nullable=False, default=False)
 
-    workouts = db.relationship("WorkoutExercise", back_populates="exercise")
+    workouts = db.relationship(
+    "WorkoutExercise",
+    back_populates="exercise",
+    cascade="all, delete-orphan"
+)
 
 
 class Workout(db.Model):
@@ -30,7 +34,11 @@ class Workout(db.Model):
     duration_minutes = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.Text)
 
-    exercises = db.relationship("WorkoutExercise", back_populates="workout")
+    exercises = db.relationship(
+    "WorkoutExercise",
+    back_populates="workout",
+    cascade="all, delete-orphan"
+)
 
     @validates("duration_minutes")
     def validate_duration(self, key, value):
@@ -43,6 +51,10 @@ class Workout(db.Model):
 class WorkoutExercise(db.Model):
     __tablename__ = 'workout_exercises'
 
+    __table_args__ = (
+        db.UniqueConstraint('workout_id', 'exercise_id', name='unique_workout_exercise'),
+    )
+
     id = db.Column(db.Integer, primary_key=True)
     workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'), nullable=False)
     exercise_id = db.Column(db.Integer, db.ForeignKey('exercise.id'), nullable=False)
@@ -53,9 +65,5 @@ class WorkoutExercise(db.Model):
     workout = db.relationship("Workout", back_populates="exercises")
     exercise = db.relationship("Exercise", back_populates="workouts")
 
-    @validates("reps", "sets", "duration_seconds")
-    def validate_numbers(self, key, value):
-        if value is not None and value <= 0:
-            raise ValueError(f"{key} must be greater than 0")
-        return value
+
 

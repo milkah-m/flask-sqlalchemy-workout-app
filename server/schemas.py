@@ -1,5 +1,5 @@
-from marshmallow import Marshmallow
-from marshmallow import fields, validates, ValidationError
+from flask_marshmallow import Marshmallow
+from marshmallow import fields, validates, ValidationError, post_dump
 
 from models import Exercise, Workout, WorkoutExercise
 
@@ -11,6 +11,8 @@ class ExerciseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Exercise
         load_instance = True
+        include_fk = True 
+
 
     @validates("name")
     def validate_name(self, value):
@@ -24,7 +26,9 @@ class WorkoutExerciseSchema(ma.SQLAlchemyAutoSchema):
         model = WorkoutExercise
         load_instance = True
 
-    
+    workout_id = fields.Integer(required=True, load_only=True)
+    exercise_id = fields.Integer(required=True, load_only=True)
+
     exercise = fields.Nested(ExerciseSchema, only=("id", "name"))
 
     @validates("reps")
@@ -36,6 +40,10 @@ class WorkoutExerciseSchema(ma.SQLAlchemyAutoSchema):
     def validate_sets(self, value):
         if value is not None and value <= 0:
             raise ValidationError("Sets must be greater than 0")
+        
+    @post_dump
+    def remove_nulls(self, data, **kwargs):
+        return {k: v for k, v in data.items() if v is not None}
 
 
 #workout schema
