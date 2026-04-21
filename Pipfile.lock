@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d408e4f95f9288fa3c021f63e35b3828e38ff7c0705f2dec9b78eba83350694a"
+            "sha256": "20d552bb175520e8d0deecf358159ba358dbdd2ce6e8744a81c9fa3fcf943332"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -45,7 +45,7 @@
                 "sha256:65f266143752f734b0a7cc83c46f4618af75b8c5911b00ccb61d0ac9b6da0360",
                 "sha256:d316bb415a2d9e2d2b3abcc4084c6502fc09240e292cd76a76afc106a1c8e04a"
             ],
-            "markers": "python_version > '3.6'",
+            "markers": "python_version >= '3.7'",
             "version": "==5.2.1"
         },
         "executing": {
@@ -64,6 +64,15 @@
             "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==2.2.2"
+        },
+        "flask-marshmallow": {
+            "hashes": [
+                "sha256:98c90a253052c72d2ddddc925539ac33bbd780c6fba86478ffe18e3b89d8b471",
+                "sha256:b758fc2c428d0cbee6fd0ccf0d55524fe9e426a86a177dcc0fc8cd71ad4b7c59"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==1.4.0"
         },
         "flask-migrate": {
             "hashes": [
@@ -179,7 +188,7 @@
                 "sha256:01daa83f504b693ba523b5a407246cabde4eb4513285a3c6acaff11a66735ee4",
                 "sha256:0f2701e8ee86e117e37f50563205d36feaa259d2e08d4a6bc6b6d74b18ce128d"
             ],
-            "markers": "python_version > '3.6'",
+            "markers": "python_version >= '3.7'",
             "version": "==9.12.0"
         },
         "ipython-pygments-lexers": {
@@ -325,6 +334,15 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==3.20.1"
+        },
+        "marshmallow-sqlalchemy": {
+            "hashes": [
+                "sha256:3865232672f3dd38c4d5e4e85fdedce76904200742c3594948a2d11d0af93258",
+                "sha256:e51192c204770645a2fab0d72f44f8789272eef75951f84b1608d6b4b0bfe0e6"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==1.5.0"
         },
         "matplotlib-inline": {
             "hashes": [
@@ -477,7 +495,7 @@
                 "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b",
                 "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"
             ],
-            "markers": "python_version > '3.6'",
+            "markers": "python_version >= '3.7'",
             "version": "==0.10.2"
         },
         "traitlets": {
