@@ -25,6 +25,10 @@ class WorkoutExerciseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = WorkoutExercise
         load_instance = True
+        include_fk = True
+
+    workout_id = fields.Integer(load_only=True)
+    exercise_id = fields.Integer(load_only=True)
 
     exercise = fields.Nested(ExerciseSchema, only=("id", "name"))
 
@@ -58,5 +62,5 @@ class WorkoutSchema(ma.SQLAlchemyAutoSchema):
     exercises = fields.Nested(
         WorkoutExerciseSchema, 
         many=True,
-        exclude=("workout_id",))
-
+        
+    )

@@ -1,8 +1,8 @@
-"""created three models
+"""new clean migration
 
-Revision ID: 73b42d1e0887
+Revision ID: cb2acce5eef0
 Revises: 
-Create Date: 2026-04-10 14:44:25.162018
+Create Date: 2026-04-22 09:53:05.703224
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '73b42d1e0887'
+revision = 'cb2acce5eef0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,7 +42,8 @@ def upgrade():
     sa.Column('duration_seconds', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['exercise_id'], ['exercise.id'], ),
     sa.ForeignKeyConstraint(['workout_id'], ['workout.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('workout_id', 'exercise_id', name='unique_workout_exercise')
     )
     # ### end Alembic commands ###
 

@@ -1,4 +1,4 @@
-# 💪 Workout Tracker API
+#  Workout Tracker API
 
 A RESTful backend API for logging and managing workouts and exercises, built with Flask, SQLAlchemy, and Marshmallow.
 

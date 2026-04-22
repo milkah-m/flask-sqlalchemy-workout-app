@@ -1,6 +1,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
+from datetime import date
 
 db = SQLAlchemy()
 
@@ -44,6 +45,13 @@ class Workout(db.Model):
     def validate_duration(self, key, value):
         if value <= 0:
             raise ValueError("Duration must be positive")
+        return value
+    
+
+    @validates("date")
+    def validate_date(self, key, value):
+        if value > date.today():
+            raise ValueError("Workout date cannot be in the future")
         return value
 
 #why is key necessary here?
